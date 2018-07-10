@@ -3,17 +3,10 @@ package com.gws.integraciones.solicitudes.salidas.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.gws.integraciones.dto.EntityDto;
-<<<<<<< HEAD
-import com.gws.integraciones.enums.EstadoRegistroType;
-=======
->>>>>>> parent of 9d5ac08... Separación del proyecto core
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -84,12 +77,8 @@ public class SolicitudDto extends EntityDto<Integer> {
 	private String status;
 	private LocalDateTime statusDate;
 	private List<SolicitudLineaDto> lineas;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50)
-    private EstadoRegistroType estado;
-    
-    @Builder
+	
+	@Builder
 	public SolicitudDto(Integer id, String codCliente, @Size(max = 13) String tipoServicio,
 			@Size(max = 16) String seriesName, int docNum, @Size(max = 8000) String direccion,
 			@Size(max = 40) String codDane, @Size(max = 64) String nit, @NotNull @Size(max = 200) String razonSocial,
@@ -100,7 +89,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 			@Size(max = 40) String groupName, @Size(max = 200) String shipToCode, @Size(max = 100) String address2,
 			@Size(max = 8000) String uWuid, LocalDateTime docDate, @Size(max = 8000) String comments,
 			@Size(max = 7) String manejaRecaudo, @Size(max = 2) String status, LocalDateTime statusDate,
-			List<SolicitudLineaDto> lineas, @NotNull EstadoRegistroType estado) {
+			List<SolicitudLineaDto> lineas) {
 		super(id);
 		this.codCliente = codCliente;
 		this.tipoServicio = tipoServicio;
@@ -133,10 +122,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 		this.status = status;
 		this.statusDate = statusDate;
 		this.lineas = lineas;
-		this.estado = estado;
 	}
-	
-
 	
 
 	
