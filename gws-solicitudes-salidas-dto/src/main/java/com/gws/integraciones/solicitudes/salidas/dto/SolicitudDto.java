@@ -10,7 +10,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.gws.integraciones.dto.EntityDto;
+<<<<<<< HEAD
 import com.gws.integraciones.enums.EstadoRegistroType;
+=======
+>>>>>>> parent of 9d5ac08... Separación del proyecto core
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
