@@ -34,12 +34,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-json</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.gws</groupId>
-			<artifactId>gws-core</artifactId>
+			<artifactId>gws-core-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

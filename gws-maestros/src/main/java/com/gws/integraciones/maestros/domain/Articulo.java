@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.gws.integraciones.domain.BaseEntity;
+import com.gws.integraciones.core.domain.BaseEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
