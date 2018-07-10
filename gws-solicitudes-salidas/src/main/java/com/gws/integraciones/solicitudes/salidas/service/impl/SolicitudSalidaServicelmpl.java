@@ -12,12 +12,12 @@ import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudLineaDto;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaLineaRepository;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaRepository;
-import com.gws.integraciones.solicitudes.salidas.service.api.DespachosService;
+import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudSalidaService;
 
 import lombok.val;
 
 @Service
-public class DespachosServicelmpl implements DespachosService {
+public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 
 	@Autowired
 	private SolicitudSalidaRepository solicitudesRepository;

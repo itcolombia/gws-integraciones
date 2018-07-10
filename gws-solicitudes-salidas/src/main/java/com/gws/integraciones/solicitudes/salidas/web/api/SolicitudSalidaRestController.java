@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gws.integraciones.solicitudes.salidas.constants.RestConstants;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
-import com.gws.integraciones.solicitudes.salidas.service.api.DespachosService;
+import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudSalidaService;
 
 import lombok.val;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = RestConstants.despachos, produces = MediaType.APPLICATION_JSON_VALUE)
-public class DespachosRestController {
+@RequestMapping(value = RestConstants.SOLICITUDES_SALIDAS, produces = MediaType.APPLICATION_JSON_VALUE)
+public class SolicitudSalidaRestController {
 
 	@Autowired
-	private DespachosService service;
+	private SolicitudSalidaService service;
 
 	@GetMapping(params = { "status" })
 	public ResponseEntity<List<Integer>> findByStatus(@RequestParam String status) {

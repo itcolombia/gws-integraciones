@@ -71,10 +71,15 @@
 		<module>gws-solicitudes-salidas</module>
 		<module>gws-solicitudes-salidas-client</module>
 		<module>gws-solicitudes-salidas-dto</module>
-		<module>gws-core</module>
+		
 		<module>gws-maestros</module>
 		<module>gws-maestros-dto</module>
 		<module>gws-maestros-client</module>
 		<module>gws-demo</module>
+		<module>gws-core-data-jpa</module>
+		<module>gws-core-domain</module>
+		<module>gws-core-dto</module>
+		<module>gws-core-web-client</module>
+		<module>gws-integraciones-commons</module>
 	</modules>
 </project>
