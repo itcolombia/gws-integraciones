@@ -73,7 +73,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 	private String comments;
 	@Size(max = 7)
 	private String manejaRecaudo;
-	@Size(max = 2)
+	@Size(max = 20)
 	private String status;
 	private LocalDateTime statusDate;
 	private List<SolicitudLineaDto> lineas;
@@ -88,7 +88,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 			@Size(max = 20) String numAtCard, @Size(max = 40) String objType, Integer series,
 			@Size(max = 40) String groupName, @Size(max = 200) String shipToCode, @Size(max = 100) String address2,
 			@Size(max = 8000) String uWuid, LocalDateTime docDate, @Size(max = 8000) String comments,
-			@Size(max = 7) String manejaRecaudo, @Size(max = 2) String status, LocalDateTime statusDate,
+			@Size(max = 7) String manejaRecaudo, @Size(max = 20) String status, LocalDateTime statusDate,
 			List<SolicitudLineaDto> lineas) {
 		super(id);
 		this.codCliente = codCliente;
@@ -125,6 +125,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 	}
 	
 
+	
 	
 	
 
