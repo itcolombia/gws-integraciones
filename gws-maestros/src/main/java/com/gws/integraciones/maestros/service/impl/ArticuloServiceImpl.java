@@ -41,16 +41,9 @@ public class ArticuloServiceImpl implements ArticuloService {
 		if (optional.isPresent()) {
 			val entity = optional.get();
 			// @formatter:off
-			val result = ArticuloDto
-					.builder()
-					.id(entity.getId())
-					.itemCode(entity.getItemCode())
-					.itemName(entity.getItemName())
-					.treeType(entity.getTreeType())
-					.createDate(entity.getCreateDate())
-					.updateDate(entity.getUpdateDate())
-					.status(entity.getStatus())
-					.statusDate(entity.getStatusDate())
+			val result = ArticuloDto.builder().id(entity.getId()).itemCode(entity.getItemCode())
+					.itemName(entity.getItemName()).treeType(entity.getTreeType()).createDate(entity.getCreateDate())
+					.updateDate(entity.getUpdateDate()).status(entity.getStatus()).statusDate(entity.getStatusDate())
 					.build();
 			// @formatter:on
 			return Optional.of(result);
@@ -64,7 +57,7 @@ public class ArticuloServiceImpl implements ArticuloService {
 		val entities = materialRepository.findAllByFatherId(fatherId);
 		val result = entities.stream().map(a -> {
 			// @formatter:off
-			val resultMaterial =  MaterialDto
+			MaterialDto resultMaterial = MaterialDto
 					.builder()
 					.id(a.getId())
 					.fatherId(a.getFatherId())

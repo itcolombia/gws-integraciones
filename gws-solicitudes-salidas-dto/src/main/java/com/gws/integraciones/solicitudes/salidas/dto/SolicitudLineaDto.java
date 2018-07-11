@@ -19,7 +19,6 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class SolicitudLineaDto extends EntityDto<Integer>{
 	
 	private int lineNum;

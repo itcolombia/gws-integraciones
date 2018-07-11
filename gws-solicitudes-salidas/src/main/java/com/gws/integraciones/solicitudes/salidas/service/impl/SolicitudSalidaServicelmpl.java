@@ -51,7 +51,7 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 			val entity = optional.get();
 			val lineas = findSolicitudesLineaById(id);
 			// @formatter:off
-			val result = SolicitudDto
+			SolicitudDto result = SolicitudDto
 					.builder()
 					.id(entity.getId())
 					.codCliente(entity.getCodCliente())
@@ -157,7 +157,7 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 		val entities = solicitudesLineaRepository.findAllById(id);
 		val result = entities.stream().map(a -> {
 			// @formatter:off
-			val resultSolicitudesLineas = SolicitudLineaDto
+			SolicitudLineaDto resultSolicitudesLineas = SolicitudLineaDto
 					.builder()
 					.lineNum(a.getLineNum())
 					.itemCode(a.getItemCode())
