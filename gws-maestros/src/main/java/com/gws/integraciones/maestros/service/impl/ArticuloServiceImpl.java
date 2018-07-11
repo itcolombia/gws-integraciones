@@ -14,6 +14,7 @@ import com.gws.integraciones.maestros.repository.ArticuloRepository;
 import com.gws.integraciones.maestros.repository.MaterialeRepository;
 import com.gws.integraciones.maestros.service.api.ArticuloService;
 
+import antlr.StringUtils;
 import lombok.val;
 
 @Service
@@ -62,6 +63,7 @@ public class ArticuloServiceImpl implements ArticuloService {
 	@Override
 	public List<MaterialDto> findMaterialesByFatherId(Integer fatherId) {
 		val entities = materialRepository.findAllByFatherId(fatherId);
+		
 		val result = entities.stream().map(a -> {
 			// @formatter:off
 			MaterialDto resultMaterial =  MaterialDto

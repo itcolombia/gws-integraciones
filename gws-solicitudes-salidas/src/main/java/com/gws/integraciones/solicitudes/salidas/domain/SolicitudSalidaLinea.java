@@ -28,31 +28,35 @@ public class SolicitudSalidaLinea extends BaseEntity<Integer> {
 
 	@Column(name = "lineNum", nullable = false)
 	private int lineNum;
-	@Column(name = "objType", length = 20, nullable = false)
+	@Column(name = "objType", length = 100, nullable = false)
+	@NotNull
+	@Size(max = 100)
+	private String objType;
+	@Column(name = "itemCode", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
-	private String objType;
-	@Column(name = "itemCode", length = 20)
-	@Size(max = 20)
 	private String itemCode;
-	@Column(name = "dscription", length = 400)
+	@Column(name = "dscription", length = 400, nullable = false)
+	@NotNull
 	@Size(max = 400)
 	private String dscription;
-	@Column(name = "quantity")
+	@Column(name = "quantity", nullable = false)
+	@NotNull
 	private BigDecimal quantity;
-	@Column(name = "whsCode", length = 32)
+	@Column(name = "whsCode", length = 32, nullable = false)
+	@NotNull
 	@Size(max = 32)
 	private String whsCode;
-	@Column(name = "filler", length = 32)
+	@Column(name = "filler", length = 32, nullable = false)
+	@NotNull
 	@Size(max = 32)
 	private String filler;
 	@Column(name = "predistribucion", length = 40)
 	@Size(max = 40)
 	private String predistribucion;
-	@Column(name = "licTradNum", length = 508)
+	@Column(name = "licTradNum", length = 508, nullable = false)
+	@NotNull
 	@Size(max = 508)
 	private String licTradNum;
-	@Column(name = "precio")
-	private Integer precio;
 
 }

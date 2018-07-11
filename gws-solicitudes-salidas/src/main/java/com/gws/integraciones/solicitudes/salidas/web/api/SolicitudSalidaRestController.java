@@ -53,10 +53,14 @@ public class SolicitudSalidaRestController {
 		// AQUI SIEMPRE ESTAS DEVOLVIENDO UN ERROR
 		return ResponseEntity.ok("");
 	}
+	
+	
 
 	@PutMapping(value = "/{id}", params = { "status=ERROR" })
 	public ResponseEntity<?> error(@PathVariable Integer id, @RequestBody String errores) {
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
 		return ResponseEntity.badRequest().build();
 	}
+	
+	
 }

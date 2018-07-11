@@ -67,6 +67,7 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 					.hoMi(entity.getHoMi())
 					.hoMa(entity.getHoMa())
 					.numAtCard(entity.getNumAtCard())
+					.groupName(entity.getGroupName())
 					.shipToCode(entity.getShipToCode())
 					.address2(entity.getAddress2())
 					.status(entity.getStatus())
