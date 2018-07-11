@@ -1,94 +1,91 @@
-package com.gws.integraciones.solicitudes.salidas.domain;
-
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.DynamicUpdate;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Entity
-@Table(name = "errores_integracion")
-@DynamicUpdate
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class ErrorIntegracion {
-
-	@Column(name = "integracion", length = 50, nullable = false)
-	@NotNull
-	@Size(max = 50)
-	private String integracion;
-	
-	@Column(name = "id_externo") 
-	@NotNull @Size(max = 100) 
-	private String idExterno;
-	
-	@Column(name = "codigo", length = 50, nullable=false) 
-	@NotNull @Size(max = 50) 
-	private String codigo;
-	@Column(name = "mensaje", length = -1, nullable = false)
-	@NotNull
-	private String mensaje;
-	@Column(name = "arg0", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg0;
-	@Column(name = "arg1", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg1;
-	@Column(name = "arg2", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg2;
-	@Column(name = "arg3", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg3;
-	@Column(name = "arg4", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg4;
-	@Column(name = "arg5", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg5;
-	@Column(name = "arg6", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg6;
-	@Column(name = "arg7", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg7;
-	@Column(name = "arg8", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg8;
-	@Column(name = "arg9", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String arg9;
-	@Column(name = "version", nullable = false)
-	private int version;
-	@Column(name = "fecha_creacion", nullable = false)
-	@NotNull
-	private LocalDateTime fechaCreacion;
-	@Column(name = "fecha_modificacion", nullable = false)
-	@NotNull
-	private LocalDateTime fechaModificacion;
-
-}
+//package com.gws.integraciones.solicitudes.salidas.domain;
+//
+//import java.time.LocalDateTime;
+//
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.Table;
+//import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.Size;
+//
+//import org.hibernate.annotations.DynamicUpdate;
+//
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+//import lombok.ToString;
+//
+//@Entity
+//@Table(name = "errores_integracion")
+//@DynamicUpdate
+//@Getter
+//@Setter
+//@ToString
+//@NoArgsConstructor
+//public class ErrorIntegracion {
+//
+//	@Column(name = "integracion", length = 50, nullable = false)
+//	@NotNull
+//	@Size(max = 50)
+//	private String integracion;
+//	
+//	@Column(name = "id_externo") 
+//	@NotNull @Size(max = 100) 
+//	private String idExterno;
+//	
+//	@Column(name = "codigo", length = 50, nullable=false) 
+//	@NotNull @Size(max = 50) 
+//	private String codigo;
+//	@Column(name = "mensaje", length = -1, nullable = false)
+//	@NotNull
+//	private String mensaje;
+//	@Column(name = "arg0", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg0;
+//	@Column(name = "arg1", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg1;
+//	@Column(name = "arg2", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg2;
+//	@Column(name = "arg3", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg3;
+//	@Column(name = "arg4", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg4;
+//	@Column(name = "arg5", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg5;
+//	@Column(name = "arg6", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg6;
+//	@Column(name = "arg7", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg7;
+//	@Column(name = "arg8", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg8;
+//	@Column(name = "arg9", length = 100, nullable = false)
+//	@NotNull
+//	@Size(max = 100)
+//	private String arg9;
+//	@Column(name = "version", nullable = false)
+//	private int version;
+//	@Column(name = "fecha_creacion", nullable = false)
+//	@NotNull
+//	private LocalDateTime fechaCreacion;
+//	@Column(name = "fecha_modificacion", nullable = false)
+//	@NotNull
+//	private LocalDateTime fechaModificacion;
+//
+//}

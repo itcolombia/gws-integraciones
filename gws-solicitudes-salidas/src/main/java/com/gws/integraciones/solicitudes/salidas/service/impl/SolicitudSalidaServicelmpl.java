@@ -122,8 +122,8 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 		val optional = solicitudesRepository.findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase("Mi")) {
-				entity.setStatus("PR");
+			if (entity.getStatus().equalsIgnoreCase("MIGRADO")) {
+				entity.setStatus("RECIBIDO");
 				entity.setStatusDate(LocalDateTime.now());
 				solicitudesRepository.saveAndFlush(entity);
 				return;
