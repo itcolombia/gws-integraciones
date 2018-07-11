@@ -93,7 +93,6 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	@Column(name = "Address2", length = 100)
 	@Size(max = 100)
 	private String address2;
-	
 	@Column(name = "U_WUID")
 	private String uWuid;
 	@Column(name = "DocDate")
