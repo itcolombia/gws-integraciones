@@ -41,7 +41,7 @@ public class ArticuloServiceImpl implements ArticuloService {
 		if (optional.isPresent()) {
 			val entity = optional.get();
 			// @formatter:off
-			val result = ArticuloDto
+			ArticuloDto result = ArticuloDto
 					.builder()
 					.id(entity.getId())
 					.itemCode(entity.getItemCode())
@@ -64,7 +64,7 @@ public class ArticuloServiceImpl implements ArticuloService {
 		val entities = materialRepository.findAllByFatherId(fatherId);
 		val result = entities.stream().map(a -> {
 			// @formatter:off
-			val resultMaterial =  MaterialDto
+			MaterialDto resultMaterial =  MaterialDto
 					.builder()
 					.id(a.getId())
 					.fatherId(a.getFatherId())
