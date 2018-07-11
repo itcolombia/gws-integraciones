@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gws.integraciones.core.domain.BaseEntity;
 
 import lombok.Getter;
@@ -92,7 +93,6 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	@Column(name = "Address2", length = 100)
 	@Size(max = 100)
 	private String address2;
-	
 	@Column(name = "U_WUID")
 	private String uWuid;
 	@Column(name = "DocDate")
@@ -101,10 +101,11 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	@Size(max = 8000)
 	private String domments;
 	@Column(name = "ManejaRecaudo", length = 7)
+	@JsonIgnore
 	@Size(max = 7)
 	private String manejaRecaudo;
 	@Column(name = "Status", length = 2)
-	@Size(max = 2)
+	@Size(max = 20)
 	private String status;
 	@Column(name = "StatusDate")
 	private LocalDateTime statusDate;

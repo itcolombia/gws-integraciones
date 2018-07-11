@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.gws.integraciones.core.domain.BaseEntity;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,20 +24,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class ErrorIntegracion {
+public class ErrorIntegracion extends BaseEntity<Integer>{
 
 	@Column(name = "integracion", length = 50, nullable = false)
 	@NotNull
 	@Size(max = 50)
 	private String integracion;
-	
-	@Column(name = "id_externo") 
-	@NotNull @Size(max = 100) 
-	private String idExterno;
-	
-	@Column(name = "codigo", length = 50, nullable=false) 
-	@NotNull @Size(max = 50) 
-	private String codigo;
+	@Column(name = "codigo", length = 50, nullable=false) @NotNull @Size(max = 50) private String codigo;
 	@Column(name = "mensaje", length = -1, nullable = false)
 	@NotNull
 	private String mensaje;

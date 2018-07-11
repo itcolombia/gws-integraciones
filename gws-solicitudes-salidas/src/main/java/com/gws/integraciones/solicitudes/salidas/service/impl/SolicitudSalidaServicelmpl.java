@@ -56,8 +56,10 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 					.id(entity.getId())
 					.codCliente(entity.getCodCliente())
 					.tipoServicio(entity.getTipoServicio())
+					.seriesName(entity.getSeriesName())
 					.docNum(entity.getDocNum())
 					.direccion(entity.getDireccion())
+					.codDane(entity.getCodDane())
 					.nit(entity.getNit())
 					.razonSocial(entity.getRazonSocial())
 					.feMi(entity.getFeMi())
@@ -122,8 +124,8 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 		val optional = solicitudesRepository.findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase("Mi")) {
-				entity.setStatus("PR");
+			if (entity.getStatus().equalsIgnoreCase("MIGRADO")) {
+				entity.setStatus("RECIBIDO");
 				entity.setStatusDate(LocalDateTime.now());
 				solicitudesRepository.saveAndFlush(entity);
 				return;

@@ -47,14 +47,14 @@ public class SolicitudSalidaRestController {
 		}
 	}
 
-	@PutMapping(value = "/{id}", params = { "status=OK" })
+	@PutMapping(value = "/{id}", params = { "status=RECIBIDO" })
 	public ResponseEntity<String> confirmar(@PathVariable Integer id) {
 		service.confirmarRecibo(id);
 		// AQUI SIEMPRE ESTAS DEVOLVIENDO UN ERROR
 		return ResponseEntity.ok("");
 	}
 
-	@PutMapping(value = "/{id}", params = { "status=ER" })
+	@PutMapping(value = "/{id}", params = { "status=ERROR" })
 	public ResponseEntity<?> error(@PathVariable Integer id, @RequestBody String errores) {
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
 		return ResponseEntity.badRequest().build();
