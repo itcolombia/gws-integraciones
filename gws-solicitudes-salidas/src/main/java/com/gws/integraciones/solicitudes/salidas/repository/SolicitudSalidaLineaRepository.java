@@ -10,6 +10,6 @@ public interface SolicitudSalidaLineaRepository extends JpaRepository<SolicitudS
 	
 	SolicitudSalidaLinea findOneById(int id);
 	
-	List<SolicitudSalidaLinea> findAllById(int id);
+	List<SolicitudSalidaLinea> findAllByIdSolicitud(int idSolicitud);
 	
 }

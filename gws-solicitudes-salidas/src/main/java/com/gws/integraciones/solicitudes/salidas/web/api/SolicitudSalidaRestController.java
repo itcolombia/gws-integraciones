@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.solicitudes.salidas.constants.RestConstants;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudSalidaService;
@@ -53,14 +54,20 @@ public class SolicitudSalidaRestController {
 		// AQUI SIEMPRE ESTAS DEVOLVIENDO UN ERROR
 		return ResponseEntity.ok("");
 	}
-	
-	
+
+	@PutMapping(value = "/{id}", params = { "status=PROCESADO" })
+	public ResponseEntity<String> procesado(@PathVariable Integer id) {
+		service.confirmarProcesado(id);
+		// service.confirmarRecibo(id);
+		// AQUI SIEMPRE ESTAS DEVOLVIENDO UN ERROR
+		return ResponseEntity.ok("");
+	}
 
 	@PutMapping(value = "/{id}", params = { "status=ERROR" })
-	public ResponseEntity<?> error(@PathVariable Integer id, @RequestBody String errores) {
+	public ResponseEntity<String> error(@PathVariable Integer id, @RequestBody List<ErrorIntegracionDto> errores) {
+		service.confirmarError(id, errores);
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
-		return ResponseEntity.badRequest().build();
+		return ResponseEntity.ok("");
 	}
-	
-	
+
 }

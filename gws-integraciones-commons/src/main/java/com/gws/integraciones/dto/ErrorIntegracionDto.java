@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorIntegracionDto{
+public class ErrorIntegracionDto {
 
 	private Integer id;
 	@NotNull

@@ -6,5 +6,5 @@ import com.gws.integraciones.core.web.client.configuration.RestTemplateConfigura
 
 @Configuration
 public class RestConfiguration extends RestTemplateConfiguration{
-	
+
 }
