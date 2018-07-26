@@ -22,7 +22,7 @@ import lombok.val;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = RestConstants.despachos, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = RestConstants.SOLICITUDES_SALIDAS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DespachosRestController {
 
 	@Autowired

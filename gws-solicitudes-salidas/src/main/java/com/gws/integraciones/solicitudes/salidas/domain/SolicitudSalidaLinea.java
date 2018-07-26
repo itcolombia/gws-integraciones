@@ -1,7 +1,5 @@
 package com.gws.integraciones.solicitudes.salidas.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gws.integraciones.core.domain.BaseEntity;
 
 import lombok.Getter;
@@ -26,12 +25,11 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SolicitudSalidaLinea extends BaseEntity<Integer> {
 
+	@Column(name = "idSolicitud")
+	@NotNull
+	private int idSolicitud;
 	@Column(name = "lineNum", nullable = false)
 	private int lineNum;
-	@Column(name = "objType", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String objType;
 	@Column(name = "itemCode", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
@@ -41,19 +39,21 @@ public class SolicitudSalidaLinea extends BaseEntity<Integer> {
 	@Size(max = 400)
 	private String dscription;
 	@Column(name = "quantity", nullable = false)
-	@NotNull
-	private BigDecimal quantity;
+	private int quantity;
 	@Column(name = "whsCode", length = 32, nullable = false)
 	@NotNull
 	@Size(max = 32)
 	private String whsCode;
+	@Column(name = "predistribucion", length = 40, nullable = false)
+	@NotNull
+	@Size(max = 40)
+	private String predistribucion;
+	@JsonIgnore
 	@Column(name = "filler", length = 32, nullable = false)
 	@NotNull
 	@Size(max = 32)
 	private String filler;
-	@Column(name = "predistribucion", length = 40)
-	@Size(max = 40)
-	private String predistribucion;
+	@JsonIgnore
 	@Column(name = "licTradNum", length = 508, nullable = false)
 	@NotNull
 	@Size(max = 508)

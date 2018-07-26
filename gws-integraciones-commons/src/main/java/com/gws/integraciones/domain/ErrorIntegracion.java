@@ -1,4 +1,4 @@
-package com.gws.integraciones.solicitudes.salidas.domain;
+package com.gws.integraciones.domain;
 
 import java.time.LocalDateTime;
 
@@ -24,13 +24,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class ErrorIntegracion extends BaseEntity<Integer>{
+public class ErrorIntegracion extends BaseEntity<Integer> {
 
 	@Column(name = "integracion", length = 50, nullable = false)
 	@NotNull
 	@Size(max = 50)
 	private String integracion;
-	@Column(name = "codigo", length = 50, nullable=false) @NotNull @Size(max = 50) private String codigo;
+	@Column(name = "id_externo", length = 50, nullable = false)
+	@NotNull
+	@Size(max = 100)
+	private String idExterno;
+	@Column(name = "codigo", length = 50, nullable = false)
+	@NotNull
+	@Size(max = 50)
+	private String codigo;
 	@Column(name = "mensaje", length = -1, nullable = false)
 	@NotNull
 	private String mensaje;
