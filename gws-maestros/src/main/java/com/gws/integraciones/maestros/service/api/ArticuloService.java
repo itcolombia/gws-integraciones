@@ -5,19 +5,25 @@ import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.maestros.dto.ArticuloDto;
 import com.gws.integraciones.maestros.dto.MaterialDto;
 
 @Transactional(readOnly = true)
 public interface ArticuloService {
 
-	List<MaterialDto> findMaterialesByFatherId(Integer fatherId);
+	List<Integer> findAllByStatus(String status);
 
 	Optional<ArticuloDto> findById(Integer id);
 
-	List<Integer> findAllByStatus(String status);
+	List<MaterialDto> findMaterialesByFatherId(Integer fatherId);
 
 	@Transactional(readOnly = false)
-	void confirmarRecibido(Integer id);
+	void confirmarRecibo(Integer id);
 
+	@Transactional(readOnly = false)
+	void confirmarAceptacion(Integer id);
+	
+	@Transactional(readOnly = false)
+	void confirmarError(Integer id, List<ErrorIntegracionDto> errores);
 }

@@ -18,18 +18,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "CAB_OITM")
+@Table(name = "Articulos")
 @DynamicUpdate
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-
-
 public class Articulo extends BaseEntity<Integer> {
-
-	
-
 
 	@Column(name = "ItemCode", updatable = false)
 	private String itemCode;

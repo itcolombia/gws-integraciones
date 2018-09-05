@@ -80,11 +80,20 @@
 		<module>gws-maestros</module>
 		<module>gws-maestros-dto</module>
 		<module>gws-maestros-client</module>
-		<module>gws-demo</module>
+		
 		<module>gws-core-data-jpa</module>
 		<module>gws-core-domain</module>
 		<module>gws-core-dto</module>
 		<module>gws-core-web-client</module>
 		<module>gws-integraciones-commons</module>
+
+
+
+
+
+
+		<module>gws-solicitudes-ordenAlistamiento</module>
+		<module>gws-solicitudes-ordenAlistamiento-client</module>
+		<module>gws-solicitudes-ordenAlistamiento-dto</module>
 	</modules>
 </project>

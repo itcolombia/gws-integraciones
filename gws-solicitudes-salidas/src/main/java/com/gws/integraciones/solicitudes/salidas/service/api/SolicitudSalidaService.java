@@ -17,7 +17,7 @@ public interface SolicitudSalidaService {
 
 	@Transactional(readOnly = false)
 	void confirmarRecibo(Integer id);
-	void confirmarProcesado(Integer id);
+	void confirmarAceptacion(Integer id);
 
 	@Transactional(readOnly = false)
 	void confirmarError(Integer id, List<ErrorIntegracionDto> errores);

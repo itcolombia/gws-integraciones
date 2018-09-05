@@ -55,5 +55,10 @@
 			<artifactId>gws-core-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.gws</groupId>
+			<artifactId>gws-integraciones-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,7 +1,5 @@
 package com.gws.integraciones.core.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,11 +19,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseEntity<ID extends Serializable> {
+public abstract class BaseEntity<ID> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Setter(value = AccessLevel.PRIVATE)
-	@Column(name = "Id", updatable = false)
+	@Column(name = "id", updatable = false)
 	private ID id;
 }

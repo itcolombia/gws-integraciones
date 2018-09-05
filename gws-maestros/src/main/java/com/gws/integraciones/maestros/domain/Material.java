@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "DET_ITM1")
+@Table(name = "Materiales")
 @DynamicUpdate
 @Getter
 @Setter
