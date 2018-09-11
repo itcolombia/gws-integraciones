@@ -1,10 +1,9 @@
 package com.gws.integraciones.solicitudes.salidas.dto;
 
-import java.math.BigDecimal;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gws.integraciones.core.dto.EntityDto;
 
 import lombok.AllArgsConstructor;
@@ -42,6 +41,11 @@ public class SolicitudLineaDto extends EntityDto<Integer> {
 	@NotNull
 	@Size(max = 40)
 	private String predistribucion;
+	@JsonIgnore
+	@NotNull
+	@Size(max = 32)
+	private String filler;
+	@JsonIgnore
 	@NotNull
 	private BigDecimal valorUnit;
 	private BigDecimal icoGws;

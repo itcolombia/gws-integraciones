@@ -43,14 +43,6 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 	@Autowired
 	private ErrorIntegracionRepository erroresRepository;
 
-	protected String getIntegracion() {
-		return "DESPACHOS";
-	}
-
-	protected SolicitudSalidaRepository getRepository() {
-		return solicitudesRepository;
-	}
-
 	@Override
 	public List<Integer> findAllByStatus(String status) {
 		val entities = getRepository().findAllByStatus(status);
@@ -98,33 +90,6 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 		}
 	}
 
-	protected List<SolicitudLineaDto> findSolicitudesLineaById(Integer id) {
-	
-		val entities = solicitudesLineaRepository.findAllByIdSolicitud(id);
-		
-		val result = entities.stream()
-				.filter(a -> a.getQuantityAsignada() != null && a.getQuantityAsignada() > 0)
-				.map(a -> {
-					// @formatter:off
-					SolicitudLineaDto resultSolicitudesLineas = SolicitudLineaDto
-								.builder()
-								.id(a.getId())
-								.idSolicitud(a.getIdSolicitud())
-								.lineNum(a.getLineNum())
-								.itemCode(a.getItemCode())
-								.dscription(a.getDscription())
-								.quantity(a.getQuantity())
-								.quantityAsignada(a.getQuantityAsignada())
-								.quantityNoAsignada(a.getQuantityNoAsignada())
-								.whsCode(a.getWhsCode())
-								.predistribucion(a.getPredistribucion())
-								.build();
-					// @formatter:on
-					return resultSolicitudesLineas;
-				}).collect(Collectors.toList());
-		return (result);
-	}
-
 	@Override
 	public void confirmarRecibo(Integer id) {
 		val optional = getRepository().findById(id);
@@ -145,40 +110,20 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 	}
 
 	@Override
-	public void confirmarAceptacion(Integer id) {
-		val optional = getRepository().findById(id);
-		if (optional.isPresent()) {
-			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase(RECIBIDO)) {
-				entity.setStatus(ACEPTADO);
-				entity.setStatusDate(LocalDateTime.now());
-				getRepository().saveAndFlush(entity);
-				return;
-			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
-						"ACEPTAR", RECIBIDO));
-			}
-		} else {
-			throw new EntityNotFoundException();
-		}
-	}
-
-	@Override
 	public void confirmarError(Integer id, List<ErrorIntegracionDto> errores) {
-		val optional = getRepository().findById(id);
+		val optional = solicitudesRepository.findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase(ENVIAR) || entity.getStatus().equalsIgnoreCase(RECIBIDO)) {
+			if (entity.getStatus().equalsIgnoreCase("MIGRADO") || entity.getStatus().equalsIgnoreCase("RECIBIDO")) {
+				entity.setStatus("ERROR");
+				entity.setStatusDate(LocalDateTime.now());
+				solicitudesRepository.saveAndFlush(entity);
+
 				val now = LocalDateTime.now();
-
-				entity.setStatus(RECHAZADO);
-				entity.setStatusDate(now);
-				getRepository().saveAndFlush(entity);
-
 				for (ErrorIntegracionDto e : errores) {
 					val error = new ErrorIntegracion();
 
-					error.setIntegracion(getIntegracion());
+					error.setIntegracion(e.getIntegracion());
 					error.setIdExterno(e.getIdExterno());
 					error.setCodigo(e.getCodigo());
 					error.setMensaje(e.getMensaje());
@@ -192,20 +137,39 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 					error.setArg7(e.getArg7());
 					error.setArg8(e.getArg8());
 					error.setArg9(e.getArg9());
-
+					error.setVersion(0);
 					error.setFechaCreacion(now);
 					error.setFechaModificacion(now);
-
+					
 					erroresRepository.save(error);
 				}
 				erroresRepository.flush();
 				return;
 			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
-						"RECHAZAR", ENVIAR + " o " + RECIBIDO));
+				throw new RuntimeException("Not Found");
 			}
-		} else {
-			throw new EntityNotFoundException();
 		}
+	}
+
+	protected List<SolicitudLineaDto> findSolicitudesLineaById(Integer id) {
+		val entities = solicitudesLineaRepository.findAllByIdSolicitud(id);
+		val result = entities.stream().map(a -> {
+			// @formatter:off
+			SolicitudLineaDto resultSolicitudesLineas = SolicitudLineaDto
+					.builder()
+					.id(a.getId())
+					.idSolicitud(a.getIdSolicitud())
+					.lineNum(a.getLineNum())
+					.itemCode(a.getItemCode())
+					.dscription(a.getDscription())
+					.quantity(a.getQuantity())
+					.whsCode(a.getWhsCode())
+					.filler(a.getFiller())
+					.predistribucion(a.getPredistribucion())
+					.build();
+			// @formatter:on
+			return resultSolicitudesLineas;
+		}).collect(Collectors.toList());
+		return (result);
 	}
 }
