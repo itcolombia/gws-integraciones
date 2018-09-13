@@ -18,13 +18,12 @@ import lombok.val;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = RestConstants.ORDEN_ALISTAMIENTO, produces = MediaType.APPLICATION_JSON_VALUE)
-
 public class OrdenAlistamientoRestController {
 
 	@Autowired
 	private OrdenAlistamientoService service;
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Integer> alistar(@RequestBody OrdenAlistamientoDto alistamiento) {
 		val id = service.recibirOrdenAlistamiento(alistamiento);
 		return ResponseEntity.ok(id);

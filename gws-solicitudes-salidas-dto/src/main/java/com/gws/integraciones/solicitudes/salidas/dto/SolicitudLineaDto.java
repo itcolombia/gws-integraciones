@@ -1,5 +1,7 @@
 package com.gws.integraciones.solicitudes.salidas.dto;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
