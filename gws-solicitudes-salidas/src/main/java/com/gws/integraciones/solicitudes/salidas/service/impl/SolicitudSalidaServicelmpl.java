@@ -31,6 +31,8 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 	private static final String ACEPTADO = "ACEPTADO";
 
 	private static final String RECHAZADO = "RECHAZADO";
+	
+	private static final String CONTABILIZAR = "CONTABILIZAR";
 
 	private static final String CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL = "El estado actual del registro es %s. Solo se puede %s un registro si se encuentra en estado %s";
 
@@ -156,6 +158,25 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 			} else {
 				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
 						"ACEPTAR", RECIBIDO));
+			}
+		} else {
+			throw new EntityNotFoundException();
+		}
+	}
+	
+	@Override
+	public void enStage(Integer id) {
+		val optional = getRepository().findById(id);
+		if(optional.isPresent()) {
+			val enStage = optional.get();
+			if(enStage.getStatus().equalsIgnoreCase(ACEPTADO)){
+				enStage.setStatus(CONTABILIZAR);
+				enStage.setStatusDate(LocalDateTime.now());
+				getRepository().saveAndFlush(enStage);
+				return;
+			} else {
+				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, enStage.getStatus(),
+						"ACEPTADO", CONTABILIZAR));
 			}
 		} else {
 			throw new EntityNotFoundException();

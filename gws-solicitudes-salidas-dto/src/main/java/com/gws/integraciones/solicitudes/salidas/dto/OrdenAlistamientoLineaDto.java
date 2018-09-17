@@ -1,5 +1,8 @@
 package com.gws.integraciones.solicitudes.salidas.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,23 +20,47 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OrdenAlistamientoLineaDto extends EntityDto<Integer> {
+
 
 	@NotNull
 	private Integer idOrdenAlistamiento;
-	private int lineNum;
+	private Integer lineNum;
+	private Integer subLineNum;
+	@NotNull
 	@Size(max = 20)
 	private String itemCode;
+	@NotNull
 	@Size(max = 20)
 	private String whsCode;
-	@Size(max = 20)
-	private String cantSolicitada;
 	private int cantDespachada;
-	private Integer cantNoDespachada;
-	@Size(max = 10)
+	private int cantNoDespachada;
+	@Size(max = 50)
 	private String estadoOpl;
-	@Size(max = 10)
+	@Size(max = 50)
 	private String bodegaOpl;
+
+	private List<OrdenAlistamientoNovedadesDto> alistamientoNovedades = new ArrayList<>();
+
+	@Builder
+	public OrdenAlistamientoLineaDto(Integer id, @NotNull Integer idOrdenAlistamiento, Integer lineNum,
+			Integer subLineNum, @NotNull @Size(max = 20) String itemCode, @NotNull @Size(max = 20) String whsCode,
+			int cantDespachada, int cantNoDespachada, @Size(max = 50) String estadoOpl,
+			@Size(max = 50) String bodegaOpl, List<OrdenAlistamientoNovedadesDto> alistamientoNovedades) {
+		super(id);
+		this.idOrdenAlistamiento = idOrdenAlistamiento;
+		this.lineNum = lineNum;
+		this.subLineNum = subLineNum;
+		this.itemCode = itemCode;
+		this.whsCode = whsCode;
+		this.cantDespachada = cantDespachada;
+		this.cantNoDespachada = cantNoDespachada;
+		this.estadoOpl = estadoOpl;
+		this.bodegaOpl = bodegaOpl;
+		this.alistamientoNovedades = alistamientoNovedades;
+	}
+
+
+	
 
 }

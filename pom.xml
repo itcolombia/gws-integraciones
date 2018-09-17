@@ -92,8 +92,8 @@
 
 
 
-		<module>gws-solicitudes-ordenAlistamiento</module>
-		<module>gws-solicitudes-ordenAlistamiento-client</module>
-		<module>gws-solicitudes-ordenAlistamiento-dto</module>
+		
+		
+		
 	</modules>
 </project>

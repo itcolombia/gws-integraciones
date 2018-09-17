@@ -1,6 +1,5 @@
 package com.gws.integraciones.maestros.domain;
 
-
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -26,7 +25,6 @@ import lombok.ToString;
 
 public class Material extends BaseEntity<Integer> {
 
-	
 	@Column(name = "FatherId", updatable = false)
 	private Integer fatherId;
 
@@ -35,7 +33,7 @@ public class Material extends BaseEntity<Integer> {
 
 	@Column(name = "CodeId", updatable = false)
 	private Integer codeId;
-	
+
 	@Column(name = "Quantity", updatable = false)
 	private Integer quantity;
 
