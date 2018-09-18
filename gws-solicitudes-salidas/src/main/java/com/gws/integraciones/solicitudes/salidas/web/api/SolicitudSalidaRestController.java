@@ -54,18 +54,17 @@ public class SolicitudSalidaRestController {
 		return ResponseEntity.ok("");
 	}
 	
-	@PutMapping(value = "/{id}", params = { "status=PROCESADO" })
+	@PutMapping(value = "/{id}", params = { "status=ACEPTADO" })
 	public ResponseEntity<String> procesado(@PathVariable Integer id) {
-		// service.confirmarRecibo(id);
-		// AQUI SIEMPRE ESTAS DEVOLVIENDO UN ERROR
+		service.confirmarAceptacion(id);
+		
 		return ResponseEntity.ok("");
 	}
-
+	
 	@PutMapping(value = "/{id}", params = { "status=ERROR" })
 	public ResponseEntity<String> error(@PathVariable Integer id, @RequestBody List<ErrorIntegracionDto> errores) {
 		service.confirmarError(id, errores);
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
 		return ResponseEntity.ok("");
 	}
-	
 }

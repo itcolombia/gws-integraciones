@@ -38,8 +38,8 @@ public class OrdenAlistamientoServiceImpl implements OrdenAlistamientoService {
 		val entity = new OrdenAlistamiento();
 
 		val now = LocalDateTime.now();
-		//alistamiento.getIdSolicitud()
-		salidasService.enStage(1);
+		//
+		salidasService.enStage(alistamiento.getIdSolicitud());
 		//salidasService.confirmarAceptacion(1);
 		entity.setIdSolicitud(alistamiento.getIdSolicitud());
 		entity.setNumeroOrdenAlistamiento(alistamiento.getNumeroOrdenAlistamiento());

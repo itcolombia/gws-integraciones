@@ -144,7 +144,7 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 			throw new EntityNotFoundException();
 		}
 	}
-
+	
 	@Override
 	public void confirmarAceptacion(Integer id) {
 		val optional = getRepository().findById(id);
