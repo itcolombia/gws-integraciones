@@ -23,7 +23,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class SolicitudDto extends EntityDto<Integer> {
 
-	private Integer id;
 	private int docEntry;
 	@NotNull
 	@Size(max = 40)
@@ -136,6 +135,9 @@ public class SolicitudDto extends EntityDto<Integer> {
 		this.status1 = status1;
 		this.lineas = lineas;
 	}
+
+
+	
 
 }
 

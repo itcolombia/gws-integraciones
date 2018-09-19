@@ -9,21 +9,23 @@ import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 
 @Transactional(readOnly = true)
-public interface SolicitudSalidaService {
+public interface SolicitudDespachoService {
 
 	Optional<SolicitudDto> findById(Integer id);
 
 	List<Integer> findAllByStatus(String status);
 
 	@Transactional(readOnly = false)
-	void confirmarRecibo(Integer id);
-	
-	void confirmarAceptacion(Integer id);
+	void confirmarReciboDeSolicitudPorOpl(Integer id);
+
+	void confirmarAceptacionDeSolicitudPorOpl(Integer id);
 
 	@Transactional(readOnly = false)
-	void confirmarError(Integer id, List<ErrorIntegracionDto> errores);
-	
+	void registraRechazoDeSolicitudPorOpl(Integer id, List<ErrorIntegracionDto> errores);
+
 	@Transactional(readOnly = false)
-	void enStage(Integer id);
-	//EN STAGE
+	void confirmarSolicitudEnStagePorOpl(Integer id);
+
+	@Transactional(readOnly = false)
+	void confirmarReciboDelDocumentoDespachoPorOpl(Integer id);
 }

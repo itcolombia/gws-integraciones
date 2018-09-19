@@ -13,7 +13,7 @@ import com.gws.integraciones.solicitudes.salidas.repository.OrdenAlistamientoLin
 import com.gws.integraciones.solicitudes.salidas.repository.OrdenAlistamientoNovedadesRepository;
 import com.gws.integraciones.solicitudes.salidas.repository.OrdenAlistamientoRepository;
 import com.gws.integraciones.solicitudes.salidas.service.api.OrdenAlistamientoService;
-import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudSalidaService;
+import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudDespachoService;
 
 import lombok.val;
 
@@ -21,7 +21,7 @@ import lombok.val;
 public class OrdenAlistamientoServiceImpl implements OrdenAlistamientoService {
 
 	@Autowired
-	private SolicitudSalidaService salidasService;
+	private SolicitudDespachoService salidasService;
 
 	@Autowired
 	private OrdenAlistamientoRepository alistamientoRepository;
@@ -39,8 +39,8 @@ public class OrdenAlistamientoServiceImpl implements OrdenAlistamientoService {
 
 		val now = LocalDateTime.now();
 		//
-		salidasService.enStage(alistamiento.getIdSolicitud());
-		//salidasService.confirmarAceptacion(1);
+		salidasService.confirmarSolicitudEnStagePorOpl(alistamiento.getIdSolicitud());
+		// salidasService.confirmarAceptacion(1);
 		entity.setIdSolicitud(alistamiento.getIdSolicitud());
 		entity.setNumeroOrdenAlistamiento(alistamiento.getNumeroOrdenAlistamiento());
 		entity.setTipoOrden(alistamiento.getTipoOrden());

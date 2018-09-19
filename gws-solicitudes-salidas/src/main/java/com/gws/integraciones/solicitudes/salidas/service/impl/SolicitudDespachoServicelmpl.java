@@ -13,28 +13,17 @@ import org.springframework.stereotype.Service;
 import com.gws.integraciones.domain.ErrorIntegracion;
 import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.repository.ErrorIntegracionRepository;
+import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatus;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudLineaDto;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaLineaRepository;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaRepository;
-import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudSalidaService;
+import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudDespachoService;
 
 import lombok.val;
 
 @Service
-public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
-
-	private static final String ENVIAR = "ENVIAR";
-
-	private static final String RECIBIDO = "RECIBIDO";
-
-	private static final String ACEPTADO = "ACEPTADO";
-
-	private static final String RECHAZADO = "RECHAZADO";
-	
-	private static final String CONTABILIZAR = "CONTABILIZAR";
-
-	private static final String CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL = "El estado actual del registro es %s. Solo se puede %s un registro si se encuentra en estado %s";
+public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 
 	@Autowired
 	private SolicitudSalidaRepository solicitudesRepository;
@@ -127,56 +116,56 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 	}
 
 	@Override
-	public void confirmarRecibo(Integer id) {
+	public void confirmarReciboDeSolicitudPorOpl(Integer id) {
 		val optional = getRepository().findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase(ENVIAR)) {
-				entity.setStatus(RECIBIDO);
+			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.ENVIAR)) {
+				entity.setStatus(ConstantsStatus.RECIBIDA_OPL);
 				entity.setStatusDate(LocalDateTime.now());
 				getRepository().saveAndFlush(entity);
 				return;
 			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
-						"CONFIRMAR EL RECIBO de ", ENVIAR));
+				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,
+						entity.getStatus(), "CONFIRMAR EL RECIBO de ", ConstantsStatus.ENVIAR));
 			}
 		} else {
 			throw new EntityNotFoundException();
 		}
 	}
-	
+
 	@Override
-	public void confirmarAceptacion(Integer id) {
+	public void confirmarAceptacionDeSolicitudPorOpl(Integer id) {
 		val optional = getRepository().findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase(RECIBIDO)) {
-				entity.setStatus(ACEPTADO);
+			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.RECIBIDA_OPL)) {
+				entity.setStatus(ConstantsStatus.ACEPTADA_OPL);
 				entity.setStatusDate(LocalDateTime.now());
 				getRepository().saveAndFlush(entity);
 				return;
 			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
-						"ACEPTAR", RECIBIDO));
+				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,
+						entity.getStatus(), "ACEPTADA_OPL", ConstantsStatus.RECIBIDA_OPL));
 			}
 		} else {
 			throw new EntityNotFoundException();
 		}
 	}
-	
+
 	@Override
-	public void enStage(Integer id) {
+	public void confirmarSolicitudEnStagePorOpl(Integer id) {
 		val optional = getRepository().findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			val enStage = optional.get();
-			if(enStage.getStatus().equalsIgnoreCase(ACEPTADO)){
-				enStage.setStatus(CONTABILIZAR);
+			if (enStage.getStatus().equalsIgnoreCase(ConstantsStatus.ACEPTADA_OPL)) {
+				enStage.setStatus(ConstantsStatus.ALISTADA_OPL);
 				enStage.setStatusDate(LocalDateTime.now());
 				getRepository().saveAndFlush(enStage);
 				return;
 			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, enStage.getStatus(),
-						"ACEPTADO", CONTABILIZAR));
+				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,
+						enStage.getStatus(), "ACEPTADA_OPL", ConstantsStatus.ALISTADA_OPL));
 			}
 		} else {
 			throw new EntityNotFoundException();
@@ -184,14 +173,15 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 	}
 
 	@Override
-	public void confirmarError(Integer id, List<ErrorIntegracionDto> errores) {
+	public void registraRechazoDeSolicitudPorOpl(Integer id, List<ErrorIntegracionDto> errores) {
 		val optional = getRepository().findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-			if (entity.getStatus().equalsIgnoreCase(ENVIAR) || entity.getStatus().equalsIgnoreCase(RECIBIDO)) {
+			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.ENVIAR)
+					|| entity.getStatus().equalsIgnoreCase(ConstantsStatus.RECIBIDA_OPL)) {
 				val now = LocalDateTime.now();
 
-				entity.setStatus(RECHAZADO);
+				entity.setStatus(ConstantsStatus.RECHAZADA_OPL);
 				entity.setStatusDate(now);
 				getRepository().saveAndFlush(entity);
 
@@ -221,8 +211,27 @@ public class SolicitudSalidaServicelmpl implements SolicitudSalidaService {
 				erroresRepository.flush();
 				return;
 			} else {
-				throw new RuntimeException(String.format(CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
-						"RECHAZAR", ENVIAR + " o " + RECIBIDO));
+				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,
+						entity.getStatus(), "RECHAZADA_OPL", ConstantsStatus.ENVIAR + " o " + ConstantsStatus.RECIBIDA_OPL));
+			}
+		} else {
+			throw new EntityNotFoundException();
+		}
+	}
+
+	@Override
+	public void confirmarReciboDelDocumentoDespachoPorOpl(Integer id) {
+		val optional = getRepository().findById(id);
+		if (optional.isPresent()) {
+			val entity = optional.get();
+			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.DOC_CREADO_SAP)) {
+				entity.setStatus(ConstantsStatus.DOC_RECIBIDO_OPL);
+				entity.setStatusDate(LocalDateTime.now());
+				getRepository().saveAndFlush(entity);
+				return;
+			} else {
+				throw new RuntimeException(
+						String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus()));
 			}
 		} else {
 			throw new EntityNotFoundException();
