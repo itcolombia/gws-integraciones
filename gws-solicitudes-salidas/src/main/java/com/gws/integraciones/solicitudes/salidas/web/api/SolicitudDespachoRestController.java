@@ -56,7 +56,7 @@ public class SolicitudDespachoRestController {
 			service.confirmarReciboDeSolicitudPorOpl(id);
 			break;
 		case ConstantsStatus.ACEPTADA_OPL:
-			service.confirmarReciboDeSolicitudPorOpl(id);
+			service.confirmarAceptacionDeSolicitudPorOpl(id);
 			break;
 		case ConstantsStatus.ALISTADA_OPL:
 			service.confirmarSolicitudEnStagePorOpl(id);
