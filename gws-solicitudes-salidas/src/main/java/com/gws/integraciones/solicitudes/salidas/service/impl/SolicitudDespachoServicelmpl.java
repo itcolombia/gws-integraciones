@@ -180,14 +180,12 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.ENVIAR)
 					|| entity.getStatus().equalsIgnoreCase(ConstantsStatus.RECIBIDA_OPL)) {
 				val now = LocalDateTime.now();
-
 				entity.setStatus(ConstantsStatus.RECHAZADA_OPL);
 				entity.setStatusDate(now);
 				getRepository().saveAndFlush(entity);
 
 				for (ErrorIntegracionDto e : errores) {
 					val error = new ErrorIntegracion();
-
 					error.setIntegracion(getIntegracion());
 					error.setIdExterno(e.getIdExterno());
 					error.setCodigo(e.getCodigo());
@@ -211,8 +209,9 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 				erroresRepository.flush();
 				return;
 			} else {
-				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,
-						entity.getStatus(), "RECHAZADA_OPL", ConstantsStatus.ENVIAR + " o " + ConstantsStatus.RECIBIDA_OPL));
+				throw new RuntimeException(
+						String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL, entity.getStatus(),
+								"RECHAZADA_OPL", ConstantsStatus.ENVIAR + " o " + ConstantsStatus.RECIBIDA_OPL));
 			}
 		} else {
 			throw new EntityNotFoundException();

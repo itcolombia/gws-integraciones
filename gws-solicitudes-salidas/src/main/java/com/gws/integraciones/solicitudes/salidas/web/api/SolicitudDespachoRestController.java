@@ -64,17 +64,29 @@ public class SolicitudDespachoRestController {
 		case ConstantsStatus.DOC_RECIBIDO_OPL:
 			service.confirmarReciboDelDocumentoDespachoPorOpl(id);
 			break;
+//		case ConstantsStatus.RECHAZADA_OPL:
+//			service.registraRechazoDeSolicitudPorOpl(id, errores);
+//			break;
 		default:
-			return ResponseEntity.badRequest().body("El estado " + s + " no es un estado valido");
+			return ResponseEntity.badRequest().body("El estado " + s + " no es un estado valido para las operaciones de confirmación");
 		}
 
 		return ResponseEntity.ok("");
 	}
 	
-	@PutMapping(value = "/{id}", params = { "status="+ConstantsStatus.RECHAZADA_OPL })
+	@PutMapping(value = "/{id}/error", params = { "status" })
 	public ResponseEntity<String> error(@PathVariable Integer id, @RequestParam String status, @RequestBody List<ErrorIntegracionDto> errores) {
-		service.registraRechazoDeSolicitudPorOpl(id, errores);
+		val e = StringUtils.defaultString(status).toUpperCase();
+		switch (e) {
+		case ConstantsStatus.RECHAZADA_OPL:
+			service.registraRechazoDeSolicitudPorOpl(id, errores);
+			break;
+
+		default:
+			return ResponseEntity.badRequest().body("El estado " + e + " no es un estado valido para las operaciones de reporte de errores");
+		}
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
 		return ResponseEntity.ok("");
 	}
+	
 }
