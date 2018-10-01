@@ -7,4 +7,5 @@ public class RestConstants {
 	final public static String SOLICITUDES_SALIDAS = BASE + "/solicitudes/salidas";
 	final public static String ORDEN_ALISTAMIENTO = BASE + "/solicitudes/ordenalistamiento";
 	final public static String DOCUMENTOS_DESPACHO = BASE + "/solicitudes/documentoDespacho";
+	final public static String DOCUMENTOS_DIGITALES = BASE + "/solicitudes/documentoDigitales";
 }
