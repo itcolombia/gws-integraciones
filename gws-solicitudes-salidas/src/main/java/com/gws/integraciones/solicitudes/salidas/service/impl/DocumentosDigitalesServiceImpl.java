@@ -46,9 +46,11 @@ public class DocumentosDigitalesServiceImpl implements DocumentosDigitalesServic
 					.builder()
 					.id(entity.getId())
 					.idSolicitud(entity.getIdSolicitud())
+					.idTipoArchivo(entity.getIdTipoArchivo())
 					.serieDocumentosDespacho(entity.getSerieDocumentosDespacho())
 					.numeroDocumentoDespacho(entity.getNumeroDocumentoDespacho())
 					.nombreArchivo(entity.getNombreArchivo())
+					.rutaArchivoCompleta(entity.getRutaArchivoCompleta())
 					.build();
 			// @formatter:on
 			return Optional.of(result);

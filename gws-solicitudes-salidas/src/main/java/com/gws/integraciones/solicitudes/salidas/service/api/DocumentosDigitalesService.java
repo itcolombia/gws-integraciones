@@ -14,10 +14,10 @@ public interface DocumentosDigitalesService {
 	
 	List<Integer> findAllByStatusArchivos(String statusArchivos);
 	
+	
 	@Transactional(readOnly = false)
 	void confirmarReciboDocumentosDigitales(Integer id);
 
 	@Transactional(readOnly = false)
 	void confirmarDescargaDocumentosDigitales(Integer id);
-
 }

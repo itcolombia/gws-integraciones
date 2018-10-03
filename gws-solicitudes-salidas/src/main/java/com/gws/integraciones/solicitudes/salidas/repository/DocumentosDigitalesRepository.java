@@ -11,5 +11,4 @@ public interface DocumentosDigitalesRepository extends JpaRepository<DocumentosD
 	DocumentosDigitales findOneById(Integer id);
 	
 	List<DocumentosDigitales> findAllByStatusArchivos(String statusArchivos );
-
 }

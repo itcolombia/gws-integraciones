@@ -1,5 +1,8 @@
 package com.gws.integraciones.solicitudes.salidas.web.api;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +29,8 @@ public class DocumentosDigitalesRestController {
 
 	@Autowired
 	private DocumentosDigitalesService service;
-
+	
+	
 	@GetMapping(params = { "statusArchivos" })
 	public ResponseEntity<List<Integer>> findAllByStatusArchivos(@RequestParam String statusArchivos) {
 		val result = service.findAllByStatusArchivos(statusArchivos);
@@ -60,6 +64,22 @@ public class DocumentosDigitalesRestController {
 		}
 		return null;
 
+	}
+	
+	@GetMapping(value = "/{id}/archivo")
+	public ResponseEntity<byte[]> report(@PathVariable Integer id) throws IOException {
+		val optional = service.findById(id);
+		if(optional.isPresent()) {
+			val archivo = optional.get();
+			//String filePath = "E:\\Reportes\\report.pdf";
+			String filePath = archivo.getRutaArchivoCompleta();
+			byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+			return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8")
+					.header("Content-Disposition", "inline; filename=\"" +archivo.getNombreArchivo()+ "\"").body(bytes);
+			
+		}else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }
