@@ -39,8 +39,10 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	@NotNull
 	@Size(max = 20)
 	private String seriesName;
-	@Column(name = "docNum", nullable = false)
-	private int docNum;
+	@Column(name = "docNum", length = 20, nullable = false)
+	@NotNull
+	@Size(max = 20)
+	private String docNum;
 	@Column(name = "numAtCard", length = 40, nullable = false)
 	@NotNull
 	@Size(max = 40)
@@ -116,6 +118,14 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	private String status;
 	@Column(name = "statusDate")
 	private LocalDateTime statusDate;
+	@Column(name = "statusDateRecibida")
+	private LocalDateTime statusDateRecibida;
+	@Column(name = "statusDateAceptada")
+	private LocalDateTime statusDateAceptada;
+	@Column(name = "statusDateRechazada")
+	private LocalDateTime statusDateRechazada;
+	@Column(name = "statusDateAlistada")
+	private LocalDateTime statusDateAlistada;
 	@Column(name = "status1", length = 20)
 	@Size(max = 20)
 	private String status1;

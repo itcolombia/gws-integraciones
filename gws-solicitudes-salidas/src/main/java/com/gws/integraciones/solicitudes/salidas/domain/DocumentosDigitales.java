@@ -32,27 +32,44 @@ public class DocumentosDigitales extends BaseEntity<Integer> {
 	@Column(name = "idTipoArchivo")
 	@NotNull
 	private int idTipoArchivo;
-	@Column(name = "idRequerido")
+	@Column(name = "requerido")
 	@NotNull
-	private int idRequerido;
-	@Column(name = "serieDocumentosDespacho", length = 20, nullable = false)
-	@NotNull
-	@Size(max = 20)
-	private String serieDocumentosDespacho;
-	@Column(name = "numeroDocumentoDespacho", length = 20, nullable = false)
+	private int requerido;
+	@Column(name = "serieDocumento", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
-	private String numeroDocumentoDespacho;
+	private String serieDocumento;
+	@Column(name = "numeroDocumento", length = 20, nullable = false)
+	@NotNull
+	@Size(max = 20)
+	private String numeroDocumento;
 	@Column(name = "nombreArchivo", length = 50, nullable = false)
 	@NotNull
 	@Size(max = 50)
 	private String nombreArchivo;
-	@Column(name = "rutaArchivoCompleta", length = 50)
-	@Size(max = 50)
+	@Column(name = "rutaArchivoCompleta", length = 1024)
+	@Size(max = 1024)
 	private String rutaArchivoCompleta;
-	@Column(name = "statusArchivos", length = 20)
-	@Size(max = 20)
-	private String statusArchivos;
+	@Column(name = "arg0", length = 100)
+	@Size(max = 100)
+	private String arg0;
+	@Column(name = "arg1", length = 100)
+	@Size(max = 100)
+	private String arg1;
+	@Column(name = "arg2", length = 100)
+	@Size(max = 100)
+	private String arg2;
+	@Column(name = "arg3", length = 100)
+	@Size(max = 100)
+	private String arg3;
+	@Column(name = "arg4", length = 100)
+	@Size(max = 100)
+	private String arg4;
+	@Column(name = "status", length = 50)
+	@Size(max = 50)
+	private String status;
+	@Column(name = "archivoCreado")
+	private Boolean archivoCreado;
 	@Column(name = "statusDateCreado")
 	private LocalDateTime statusDateCreado;
 	@Column(name = "statusDateRecibido")

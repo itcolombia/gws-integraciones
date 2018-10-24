@@ -12,11 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatus;
+import com.gws.integraciones.dto.ErrorIntegracionDto;
+import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatusArchivos;
 import com.gws.integraciones.solicitudes.salidas.constants.RestConstants;
 import com.gws.integraciones.solicitudes.salidas.dto.DocumentosDigitalesDto;
 import com.gws.integraciones.solicitudes.salidas.service.api.DocumentosDigitalesService;
@@ -29,11 +31,10 @@ public class DocumentosDigitalesRestController {
 
 	@Autowired
 	private DocumentosDigitalesService service;
-	
-	
-	@GetMapping(params = { "statusArchivos" })
-	public ResponseEntity<List<Integer>> findAllByStatusArchivos(@RequestParam String statusArchivos) {
-		val result = service.findAllByStatusArchivos(statusArchivos);
+
+	@GetMapping(params = { "status" })
+	public ResponseEntity<List<Integer>> findAllByStatus(@RequestParam String status) {
+		val result = service.findAllByStatus(status);
 		return ResponseEntity.ok(result);
 	}
 
@@ -47,14 +48,14 @@ public class DocumentosDigitalesRestController {
 		}
 	}
 
-	@PutMapping(value = "/{id}", params = { "statusArchivos" })
-	public ResponseEntity<?> confirmar(@PathVariable Integer id, @RequestParam String statusArchivos) {
-		val s = StringUtils.defaultString(statusArchivos).toUpperCase();
+	@PutMapping(value = "/{id}", params = { "status" })
+	public ResponseEntity<?> confirmar(@PathVariable Integer id, @RequestParam String status) {
+		val s = StringUtils.defaultString(status).toUpperCase();
 		switch (s) {
-		case ConstantsStatus.GENERAR_PDF:
+		case ConstantsStatusArchivos.RECIBIDO_OPL:
 			service.confirmarReciboDocumentosDigitales(id);
 			break;
-		case ConstantsStatus.ACEPTADO_REGISTO_PDF_OPL:
+		case ConstantsStatusArchivos.ARCHIVO_DESCARGADO_OPL:
 			service.confirmarDescargaDocumentosDigitales(id);
 			break;
 		default:
@@ -65,21 +66,49 @@ public class DocumentosDigitalesRestController {
 		return null;
 
 	}
-	
+
+	// ObjectMapper mapper = new ObjectMapper();
+	// ObjectNode node = mapper.createObjectNode();
+	// node.put("codigo", "1111");
+	// node.put("mensaje",ConstantsStatus.NO_HAY_ARCHIVO);
 	@GetMapping(value = "/{id}/archivo")
-	public ResponseEntity<byte[]> report(@PathVariable Integer id) throws IOException {
+	public ResponseEntity<?> report(@PathVariable Integer id) throws IOException {
 		val optional = service.findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
+
 			val archivo = optional.get();
-			//String filePath = "E:\\Reportes\\report.pdf";
-			String filePath = archivo.getRutaArchivoCompleta();
-			byte[] bytes = Files.readAllBytes(Paths.get(filePath));
-			return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8")
-					.header("Content-Disposition", "inline; filename=\"" +archivo.getNombreArchivo()+ "\"").body(bytes);
-			
-		}else {
+			if (archivo.isArchivoCreado()) {
+				//switch (archivo.getStatus()) {
+				//case "RECIBIDO_OPL":
+					//service.confirmarDescargaDocumentosDigitales(id);
+					String filePath = archivo.getRutaArchivoCompleta();
+					byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+					return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8")
+							.header("Content-Disposition", "inline; filename=\"" + archivo.getNombreArchivo() + "\"")
+							.body(bytes);
+				//case "ARCHIVO_DESCARGADO_OPL":
+				//default:
+					//break;
+				//}
+			}
+			return ResponseEntity.badRequest()
+					.body(ConstantsStatusArchivos.NO_HAY_ARCHIVO + " o esa ta en un estado que no admite descaraga");
+		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	@PutMapping(value = "/{id}/error", params = { "status" })
+	public ResponseEntity<String> error(@PathVariable Integer id, @RequestParam String status, @RequestBody List<ErrorIntegracionDto> errores) {
+		val e = StringUtils.defaultString(status).toUpperCase();
+		switch (e) {
+		case ConstantsStatusArchivos.ARCHIVO_RECHAZADO_OPL:
+			service.rechazarDescargaDocumentosDigitales(id, errores);
+			break;
 
+		default:
+			return ResponseEntity.badRequest().body("El estado " + e + " no es un estado valido para las operaciones de reporte de errores");
+		}
+		// AQUI NO ESTAS GUARDANDO LOS ERRORES
+		return ResponseEntity.ok("");
+	}
 }

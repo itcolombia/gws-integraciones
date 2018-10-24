@@ -122,7 +122,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 			val entity = optional.get();
 			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.ENVIAR)) {
 				entity.setStatus(ConstantsStatus.RECIBIDA_OPL);
-				entity.setStatusDate(LocalDateTime.now());
+				entity.setStatusDateRecibida(LocalDateTime.now());
 				getRepository().saveAndFlush(entity);
 				return;
 			} else {
@@ -141,7 +141,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 			val entity = optional.get();
 			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.RECIBIDA_OPL)) {
 				entity.setStatus(ConstantsStatus.ACEPTADA_OPL);
-				entity.setStatusDate(LocalDateTime.now());
+				entity.setStatusDateAceptada(LocalDateTime.now());
 				getRepository().saveAndFlush(entity);
 				return;
 			} else {
@@ -160,7 +160,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 			val enStage = optional.get();
 			if (enStage.getStatus().equalsIgnoreCase(ConstantsStatus.ACEPTADA_OPL)) {
 				enStage.setStatus(ConstantsStatus.ALISTADA_OPL);
-				enStage.setStatusDate(LocalDateTime.now());
+				enStage.setStatusDateAlistada(LocalDateTime.now());
 				getRepository().saveAndFlush(enStage);
 				return;
 			} else {
@@ -181,7 +181,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 					|| entity.getStatus().equalsIgnoreCase(ConstantsStatus.RECIBIDA_OPL)) {
 				val now = LocalDateTime.now();
 				entity.setStatus(ConstantsStatus.RECHAZADA_OPL);
-				entity.setStatusDate(now);
+				entity.setStatusDateRechazada(now);
 				getRepository().saveAndFlush(entity);
 
 				for (ErrorIntegracionDto e : errores) {
@@ -200,7 +200,6 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 					error.setArg7(e.getArg7());
 					error.setArg8(e.getArg8());
 					error.setArg9(e.getArg9());
-
 					error.setFechaCreacion(now);
 					error.setFechaModificacion(now);
 
@@ -214,7 +213,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 								"RECHAZADA_OPL", ConstantsStatus.ENVIAR + " o " + ConstantsStatus.RECIBIDA_OPL));
 			}
 		} else {
-			throw new EntityNotFoundException();
+			
 		}
 	}
 
