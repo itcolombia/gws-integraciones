@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.gws.integraciones.domain.ErrorIntegracion;
 import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.repository.ErrorIntegracionRepository;
+import com.gws.integraciones.repository.TipoServicioRepository;
 import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatus;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudLineaDto;
@@ -33,11 +34,18 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 
 	@Autowired
 	private ErrorIntegracionRepository erroresRepository;
+	
+	@Autowired
+	private TipoServicioRepository tipoServiciosRepository;
 
 	protected String getIntegracion() {
 		return "DESPACHOS";
 	}
 
+	protected TipoServicioRepository getTipoServiciosRepository() {
+		return tipoServiciosRepository;
+	};
+	
 	protected SolicitudSalidaRepository getRepository() {
 		return solicitudesRepository;
 	}
@@ -55,16 +63,18 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 		val optional = getRepository().findById(id);
 		if (optional.isPresent()) {
 			val entity = optional.get();
-
+			val optional2 = getTipoServiciosRepository().findById(entity.getIdTipoServicio());
+			val entity2 = optional2.get();
 			val lineas = findSolicitudesLineaById(id);
 			// @formatter:off
 			SolicitudDto result = SolicitudDto
 					.builder()
 					.id(entity.getId())
-					.docEntry(entity.getDocEntry())
-					.objType(entity.getObjType())
+//					.docEntry(entity.getDocEntry())
+//					.objType(entity.getObjType())
+					.tipoServicio(entity2.getTipoServicio())
+					.idTipoServicio(entity.getIdTipoServicio())
 					.codCliente(entity.getCodCliente())
-					.tipoServicio(entity.getTipoServicio())
 					.seriesName(entity.getSeriesName())
 					.docNum(entity.getDocNum())
 					.direccion(entity.getDireccion())
@@ -75,11 +85,11 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 					.feMa(entity.getFeMa())
 					.hoMi(entity.getHoMi())
 					.hoMa(entity.getHoMa())
-					.numAtCard(entity.getNumAtCard())
+//					.numAtCard(entity.getNumAtCard())
 					.groupName(entity.getGroupName())
 					.shipToCode(entity.getShipToCode())
 					.status(entity.getStatus())
-					.statusDate(entity.getStatusDate())
+//					.statusDate(entity.getStatusDate())
 					.lineas(lineas)
 					.build();
 			// @formatter:on
@@ -186,6 +196,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 
 				for (ErrorIntegracionDto e : errores) {
 					val error = new ErrorIntegracion();
+					error.setIdSolicitud(entity.getId());
 					error.setIntegracion(getIntegracion());
 					error.setIdExterno(e.getIdExterno());
 					error.setCodigo(e.getCodigo());
@@ -224,7 +235,7 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 			val entity = optional.get();
 			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.DOC_CREADO_SAP)) {
 				entity.setStatus(ConstantsStatus.DOC_RECIBIDO_OPL);
-				entity.setStatusDate(LocalDateTime.now());
+//				entity.setStatusDate(LocalDateTime.now());
 				getRepository().saveAndFlush(entity);
 				return;
 			} else {

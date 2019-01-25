@@ -18,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "DocumentosDespachoLineas")
+@Table(name = "DocumentosOrdenesLineas")
 @DynamicUpdate
 @Getter
 @Setter

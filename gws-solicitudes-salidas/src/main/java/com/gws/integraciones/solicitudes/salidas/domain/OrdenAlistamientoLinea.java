@@ -25,7 +25,7 @@ import lombok.ToString;
 public class OrdenAlistamientoLinea extends BaseEntity<Integer> {
 
 	@Column(name = "idOrdenAlistamiento")
-	private Integer idOrdenAlistamiento;
+	private Integer idOrdenAlistamiento;	
 	@Column(name = "lineNum")
 	private Integer lineNum;
 	@Column(name = "subLineNum")
@@ -48,5 +48,6 @@ public class OrdenAlistamientoLinea extends BaseEntity<Integer> {
 	@Column(name = "bodegaOpl", length = 50)
 	@Size(max = 50)
 	private String bodegaOpl;
+		
 
 }

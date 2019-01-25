@@ -52,7 +52,7 @@ public class SolicitudLineaDto extends EntityDto<Integer> {
 	private BigDecimal valorUnit;
 	private BigDecimal icoGws;
 	private BigDecimal icoCliente;
-	@Size(max = 20)
-	private String statusLinea;
+//	@Size(max = 20)
+//	private String statusLinea;
 
 }

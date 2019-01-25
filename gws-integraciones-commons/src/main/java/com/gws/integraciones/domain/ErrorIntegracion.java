@@ -18,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "errores_integracion")
+@Table(name = "SolicitudesErrores")
 @DynamicUpdate
 @Getter
 @Setter
@@ -26,11 +26,14 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ErrorIntegracion extends BaseEntity<Integer> {
 
+	@Column(name = "idSolicitud")
+	private Integer idSolicitud; 
+	
 	@Column(name = "integracion", length = 50, nullable = false)
 	@NotNull
 	@Size(max = 50)
 	private String integracion;
-	@Column(name = "id_externo", length = 50, nullable = false)
+	@Column(name = "idExterno", length = 50, nullable = false)
 	@NotNull
 	@Size(max = 100)
 	private String idExterno;
@@ -83,11 +86,12 @@ public class ErrorIntegracion extends BaseEntity<Integer> {
 	private String arg9;
 	@Column(name = "version", nullable = false)
 	private int version;
-	@Column(name = "fecha_creacion", nullable = false)
+	@Column(name = "fechaCreacion", nullable = false)
 	@NotNull
 	private LocalDateTime fechaCreacion;
-	@Column(name = "fecha_modificacion", nullable = false)
+	@Column(name = "fechaModificacion", nullable = false)
 	@NotNull
 	private LocalDateTime fechaModificacion;
+
 
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "SolicitudesDespacho")
+@Table(name = "Solicitudes")
 @DynamicUpdate
 @Getter
 @Setter
@@ -27,58 +27,56 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SolicitudSalida extends BaseEntity<Integer> {
 
-	@Column(name = "docEntry", nullable = false)
-	private int docEntry;
-	@Column(name = "objType", length = 40, nullable = false)
-	@NotNull
-	@Size(max = 40)
-	private String objType;
-	@Column(name = "series", nullable = false)
-	private int series;
-	@Column(name = "seriesName", length = 20, nullable = false)
+//	@Column(name = "docEntry", nullable = false)
+//	private int docEntry;
+//	@Column(name = "objType", length = 40, nullable = false)
+//	@NotNull
+//	@Size(max = 40)
+//	private String objType;
+//	@Column(name = "series", nullable = false)
+//	private int series;
+	@Column(name = "nombreSerie", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
 	private String seriesName;
-	@Column(name = "docNum", length = 20, nullable = false)
+	@Column(name = "documento", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
 	private String docNum;
-	@Column(name = "numAtCard", length = 40, nullable = false)
-	@NotNull
-	@Size(max = 40)
-	private String numAtCard;
-	@Column(name = "noPedidoExterno", length = 40)
-	@Size(max = 40)
-	private String noPedidoExterno;
-	@Column(name = "codCliente", length = 20, nullable = false)
+//	@Column(name = "ordenCompra", length = 40, nullable = false)
+//	@NotNull
+//	@Size(max = 40)
+//	private String numAtCard;
+//	@Column(name = "noPedidoExterno", length = 40)
+//	@Size(max = 40)
+//	private String noPedidoExterno;
+	@Column(name = "codigoEmpresa", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
 	private String codCliente;
-	@Column(name = "tipoServicio", length = 100, nullable = false)
-	@NotNull
-	@Size(max = 100)
-	private String tipoServicio;
-	@Column(name = "codClienteSap", length = 40, nullable = false)
+	@Column(name = "idTipoServicio", nullable = false)
+	private int idTipoServicio;
+	@Column(name = "terceroCodigoSap", length = 40, nullable = false)
 	@NotNull
 	@Size(max = 40)
 	private String codClienteSap;
-	@Column(name = "nit", length = 40, nullable = false)
+	@Column(name = "terceroNit", length = 40, nullable = false)
 	@NotNull
 	@Size(max = 40)
 	private String nit;
-	@Column(name = "razonSocial", length = 200, nullable = false)
+	@Column(name = "terceroRazonSocial", length = 200, nullable = false)
 	@NotNull
 	@Size(max = 200)
 	private String razonSocial;
-	@Column(name = "groupName", length = 40, nullable = false)
+	@Column(name = "nombreGrupo", length = 40, nullable = false)
 	@NotNull
 	@Size(max = 40)
 	private String groupName;
-	@Column(name = "shipToCode", length = 200, nullable = false)
+	@Column(name = "nombreDireccion", length = 200, nullable = false)
 	@NotNull
 	@Size(max = 200)
 	private String shipToCode;
-	@Column(name = "codDane", length = 10, nullable = false)
+	@Column(name = "codigoDane", length = 10, nullable = false)
 	@NotNull
 	@Size(max = 10)
 	private String codDane;
@@ -100,34 +98,34 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	@NotNull
 	@Size(max = 10)
 	private String hoMa;
-	@Column(name = "comments", length = 400, nullable = false)
-	@NotNull
-	@Size(max = 400)
-	private String comments;
-	@Column(name = "docDate", nullable = false)
-	@NotNull
-	private LocalDateTime docDate;
-	@Column(name = "createDate", nullable = false)
-	@NotNull
-	private LocalDateTime createDate;
-	@Column(name = "u_GW_PUERTO", nullable = false)
-	private int uGwPuerto;
+//	@Column(name = "comments", length = 400, nullable = false)
+//	@NotNull
+//	@Size(max = 400)
+//	private String comments;
+//	@Column(name = "docDate", nullable = false)
+//	@NotNull
+//	private LocalDateTime docDate;
+//	@Column(name = "createDate", nullable = false)
+//	@NotNull
+//	private LocalDateTime dateCreacion;
+//	@Column(name = "u_GW_PUERTO", nullable = false)
+//	private int uGwPuerto;
 	@Column(name = "status", length = 20, nullable = false)
 	@NotNull
 	@Size(max = 20)
 	private String status;
-	@Column(name = "statusDate")
-	private LocalDateTime statusDate;
-	@Column(name = "statusDateRecibida")
+//	@Column(name = "statusDate")
+//	private LocalDateTime statusDate;
+	@Column(name = "dateRecibida")
 	private LocalDateTime statusDateRecibida;
-	@Column(name = "statusDateAceptada")
+	@Column(name = "dateAceptada")
 	private LocalDateTime statusDateAceptada;
-	@Column(name = "statusDateRechazada")
+	@Column(name = "dateRechazada")
 	private LocalDateTime statusDateRechazada;
-	@Column(name = "statusDateAlistada")
+	@Column(name = "dateAlistada")
 	private LocalDateTime statusDateAlistada;
-	@Column(name = "status1", length = 20)
-	@Size(max = 20)
-	private String status1;
+//	@Column(name = "status1", length = 20)
+//	@Size(max = 20)
+//	private String status1;
 
 }

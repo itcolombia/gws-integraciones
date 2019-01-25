@@ -21,6 +21,7 @@ public class ErrorIntegracionDto{
 	private Integer id;
 	@NotNull
 	@Size(max = 50)
+	private Integer idSolicitud; 
 	private String integracion;
 	@NotNull
 	@Size(max = 100)

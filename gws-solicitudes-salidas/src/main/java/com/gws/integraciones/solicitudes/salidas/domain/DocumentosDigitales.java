@@ -70,11 +70,11 @@ public class DocumentosDigitales extends BaseEntity<Integer> {
 	private String status;
 	@Column(name = "archivoCreado")
 	private Boolean archivoCreado;
-	@Column(name = "statusDateCreado")
+	@Column(name = "DateCreado")
 	private LocalDateTime statusDateCreado;
-	@Column(name = "statusDateRecibido")
+	@Column(name = "DateRecibido")
 	private LocalDateTime statusDateRecibido;
-	@Column(name = "statusDateDescarga")
+	@Column(name = "DateDescarga")
 	private LocalDateTime statusDateDescarga;
 	@Column(name = "statusDateUltimaDescarga")
 	private LocalDateTime statusDateUltimaDescarga;

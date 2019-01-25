@@ -18,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "SolicitudesDespachoLineas")
+@Table(name = "SolicitudesLineas")
 @DynamicUpdate
 @Getter
 @Setter
@@ -37,17 +37,17 @@ public class SolicitudSalidaLinea extends BaseEntity<Integer> {
 	@NotNull
 	@Size(max = 20)
 	private String itemCode;
-	@Column(name = "dscription", length = 400, nullable = false)
+	@Column(name = "descripcion", length = 400, nullable = false)
 	@NotNull
 	@Size(max = 400)
 	private String dscription;
-	@Column(name = "quantity", nullable = false)
+	@Column(name = "cantidad", nullable = false)
 	private int quantity;
-	@Column(name = "quantityAsignada")
+	@Column(name = "cantidadAsignada")
 	private Integer quantityAsignada;
-	@Column(name = "quantityNoAsignada")
+	@Column(name = "cantidadNoAsignada")
 	private Integer quantityNoAsignada;
-	@Column(name = "whsCode", length = 32, nullable = false)
+	@Column(name = "almacen", length = 32, nullable = false)
 	@NotNull
 	@Size(max = 32)
 	private String whsCode;
@@ -55,19 +55,19 @@ public class SolicitudSalidaLinea extends BaseEntity<Integer> {
 	@NotNull
 	@Size(max = 40)
 	private String predistribucion;
-	@Column(name = "valorUnit", nullable = false)
+	@Column(name = "precioEmpresa", nullable = false)
 	@NotNull
 	private BigDecimal valorUnit;
-	@Column(name = "valorCliente")
+	@Column(name = "precioCliente")
 	private BigDecimal valorCliente;
 	@Column(name = "descuento")
 	private BigDecimal descuento;
-	@Column(name = "icoGws")
+	@Column(name = "icoEmpresa")
 	private BigDecimal icoGws;
 	@Column(name = "icoCliente")
 	private BigDecimal icoCliente;
-	@Column(name = "statusLinea", length = 20)
-	@Size(max = 20)
-	private String statusLinea;
+//	@Column(name = "statusLinea", length = 20)
+//	@Size(max = 20)
+//	private String statusLinea;
 
 }

@@ -1,4 +1,4 @@
-package com.gws.integraciones.solicitudes.salidas.domain;
+package com.gws.integraciones.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,24 +16,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "DocumentosOrdenes")
+@Table(name = "TiposServicios")
 @DynamicUpdate
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class DocumentoDespacho extends BaseEntity<Integer> {
+public class TipoServicios extends BaseEntity<Integer> {
 
-	@Column(name = "idSolicitud")
+	@Column(name = "codTipoServicio", length = 50, nullable = false)
 	@NotNull
-	private int idSolicitud;
-	@Column(name = "seriesName", length = 40, nullable = false)
+	@Size(max = 50)
+	private String codTipoServicio;
+	@Column(name = "tipoServicio", length = 50, nullable = false)
 	@NotNull
-	@Size(max = 40)
-	private String prefijoFactura;
-	@Column(name = "docNum", length = 40, nullable = false)
-	@NotNull
-	@Size(max = 40)
-	private String numeroFactura;
+	@Size(max = 50)
+	private String tipoServicio;
 
 }
