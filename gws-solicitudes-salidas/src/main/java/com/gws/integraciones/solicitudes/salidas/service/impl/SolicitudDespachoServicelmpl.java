@@ -15,8 +15,11 @@ import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.repository.ErrorIntegracionRepository;
 import com.gws.integraciones.repository.TipoServicioRepository;
 import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatus;
+import com.gws.integraciones.solicitudes.salidas.domain.ConfirmacionDespachoMercacia;
+import com.gws.integraciones.solicitudes.salidas.dto.ConfirmacionDespachoMercanciaDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudLineaDto;
+import com.gws.integraciones.solicitudes.salidas.repository.ConfirmacionDespachoMercanciaRepository;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaLineaRepository;
 import com.gws.integraciones.solicitudes.salidas.repository.SolicitudSalidaRepository;
 import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudDespachoService;
@@ -34,6 +37,9 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 
 	@Autowired
 	private ErrorIntegracionRepository erroresRepository;
+	
+	@Autowired
+	private ConfirmacionDespachoMercanciaRepository despachoMercanciaRepository;
 	
 	@Autowired
 	private TipoServicioRepository tipoServiciosRepository;
@@ -245,5 +251,46 @@ public class SolicitudDespachoServicelmpl implements SolicitudDespachoService {
 		} else {
 			throw new EntityNotFoundException();
 		}
+	}
+
+	@Override
+	public void registrarConfirmacionDespachoMercancia(Integer id,List<ConfirmacionDespachoMercanciaDto> confDespacho) {
+		val optional = getRepository().findById(id);
+		if(optional.isPresent()) {
+			val entity = optional.get();
+			if (entity.getStatus().equalsIgnoreCase(ConstantsStatus.DOC_RECIBIDO_OPL)) {
+				val now = LocalDateTime.now();
+				entity.setStatus(ConstantsStatus.DESPACHADO_OPL);
+				entity.setDateDespacho(now);
+				getRepository().saveAndFlush(entity);
+				for(ConfirmacionDespachoMercanciaDto e : confDespacho) {
+					val confirmDespa = new ConfirmacionDespachoMercacia();
+					confirmDespa.setIdSolicitud(entity.getId());
+					confirmDespa.setIdOrdenAlistamiento(e.getIdOrdenAlistamiento());
+					confirmDespa.setPlacasVehiculo(e.getPlacasVehiculo());
+					confirmDespa.setRemesa(e.getRemesa());
+					confirmDespa.setTransportadora(e.getTransportadora());
+					confirmDespa.setNovedades(e.getNovedades());
+					confirmDespa.setItemCode(e.getItemCode());
+					confirmDespa.setLineNum(e.getLineNum());
+					confirmDespa.setCantidadDespachada(e.getCantidadDespachada());
+					confirmDespa.setCantidadNoDespachada(e.getCantidadNoDespachada());
+					confirmDespa.setDespachado(e.getDespachado());
+					confirmDespa.setFechaRecibida(now);
+					confirmDespa.setFechaDespacho(now);
+					confirmDespa.setEstadoDespacho(e.getEstadoDespacho());;
+					
+					despachoMercanciaRepository.save(confirmDespa);
+				}
+				despachoMercanciaRepository.flush();
+				return;
+			}else {
+				throw new RuntimeException(String.format(ConstantsStatus.CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL,entity.getStatus(),
+						"DESPACHADO_OPL",ConstantsStatus.DOC_RECIBIDO_OPL));
+			}
+		}else {
+			
+		}
+		
 	}
 }

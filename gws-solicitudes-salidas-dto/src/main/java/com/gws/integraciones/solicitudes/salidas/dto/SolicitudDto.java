@@ -92,6 +92,8 @@ public class SolicitudDto extends EntityDto<Integer> {
 	private LocalDateTime statusDateAceptada;
 	private LocalDateTime statusDateRechazada;
 	private LocalDateTime statusDateAlistada;
+	private LocalDateTime dateDespacho;
+	
 	@Size(max = 20)
 	// private String status1;
 
@@ -107,7 +109,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 			@NotNull @Size(max = 10) String hoMi, @NotNull @Size(max = 10) String hoMa,
 			@NotNull @Size(max = 400) LocalDateTime docDate, @NotNull LocalDateTime dateCreacion, String status,
 			LocalDateTime statusDateRecibida, LocalDateTime statusDateAceptada, LocalDateTime statusDateRechazada,
-			LocalDateTime statusDateAlistada, @Size(max = 20) List<SolicitudLineaDto> lineas) {
+			LocalDateTime statusDateAlistada,LocalDateTime dateDespacho, @Size(max = 20) List<SolicitudLineaDto> lineas) {
 		super(id);
 		this.seriesName = seriesName;
 		this.docNum = docNum;
@@ -132,6 +134,7 @@ public class SolicitudDto extends EntityDto<Integer> {
 		this.statusDateAceptada = statusDateAceptada;
 		this.statusDateRechazada = statusDateRechazada;
 		this.statusDateAlistada = statusDateAlistada;
+		this.dateDespacho = dateDespacho;
 		this.lineas = lineas;
 	}
 	

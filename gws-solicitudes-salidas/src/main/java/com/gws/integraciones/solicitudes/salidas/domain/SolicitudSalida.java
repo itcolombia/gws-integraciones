@@ -124,6 +124,8 @@ public class SolicitudSalida extends BaseEntity<Integer> {
 	private LocalDateTime statusDateRechazada;
 	@Column(name = "dateAlistada")
 	private LocalDateTime statusDateAlistada;
+	@Column(name = "dateDespacho")
+	private LocalDateTime dateDespacho;
 //	@Column(name = "status1", length = 20)
 //	@Size(max = 20)
 //	private String status1;

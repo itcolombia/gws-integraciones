@@ -9,4 +9,5 @@ public interface OrdenAlistamientoService {
 
 	@Transactional(readOnly = false)
 	Integer recibirOrdenAlistamiento(OrdenAlistamientoDto alistamiento);
+	
 }

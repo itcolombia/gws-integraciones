@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gws.integraciones.dto.ErrorIntegracionDto;
+import com.gws.integraciones.solicitudes.salidas.dto.ConfirmacionDespachoMercanciaDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 
 @Transactional(readOnly = true)
@@ -28,4 +29,7 @@ public interface SolicitudDespachoService {
 
 	@Transactional(readOnly = false)
 	void confirmarReciboDelDocumentoDespachoPorOpl(Integer id);
+	
+	@Transactional(readOnly = false)
+	void registrarConfirmacionDespachoMercancia(Integer id, List<ConfirmacionDespachoMercanciaDto> confDespacho);
 }

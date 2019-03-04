@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gws.integraciones.dto.ErrorIntegracionDto;
 import com.gws.integraciones.solicitudes.salidas.configuration.ConstantsStatus;
 import com.gws.integraciones.solicitudes.salidas.constants.RestConstants;
+import com.gws.integraciones.solicitudes.salidas.dto.ConfirmacionDespachoMercanciaDto;
 import com.gws.integraciones.solicitudes.salidas.dto.SolicitudDto;
 import com.gws.integraciones.solicitudes.salidas.service.api.SolicitudDespachoService;
 
@@ -88,5 +89,18 @@ public class SolicitudDespachoRestController {
 		// AQUI NO ESTAS GUARDANDO LOS ERRORES
 		return ResponseEntity.ok("");
 	}
+	@PutMapping(value="/{id}/confirmarDespacho",params = {"status"})
+	public ResponseEntity<String> despachar(@PathVariable Integer id, @RequestParam String status, @RequestBody List<ConfirmacionDespachoMercanciaDto> confDespacho) {
+		val e = StringUtils.defaultString(status).toUpperCase();
+		switch (e) {
+		case ConstantsStatus.DESPACHADO_OPL:
+			service.registrarConfirmacionDespachoMercancia(id, confDespacho);
+			break;
+		default:
+			return ResponseEntity.badRequest().body("El Documento ya se " + e );
+		}
+		return ResponseEntity.ok("");
+	}
+	
 	
 }

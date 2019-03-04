@@ -15,6 +15,8 @@ public class ConstantsStatus {
 	public static final String DOC_CREADO_SAP = "DOC_CREADO_SAP";
 	
 	public static final String DOC_RECIBIDO_OPL = "DOC_RECIBIDO_OPL";
+	
+	public static final String DESPACHADO_OPL = "DESPACHADO_OPL";
 
 
 	public static final String CAMBIO_ESTADO_NO_VALIDO_POR_ESTADO_ACTUAL = "El estado actual del registro es %s. Solo se puede %s un registro si se encuentra en estado %s";
